@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Foraged</h2>
+<ul>
+    {% for f in foraged_list %}
+    <li>{{ f.name }}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
