@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Add Foraged Item</h2>
+<table class='table'>
+    <form method="POST", class="post-form">{% csrf_token %}
+        {{form.as_table}}
+</table>
+<button type="submit" class="save btn btn_default">Save</button>
+</form>
+
+<p>This friendly application will help you keep track of foraged finds on your forays.</p>
+<p>Whether you are here in the PNW where this app was born or in the frozen tundras of Antarctica there are gifts to harvest. A trip to find these gifts is often dubbed a "foray." With this application you can log and share the fruits of whatever land you find yourself on.</p>
+{% endblock %}
