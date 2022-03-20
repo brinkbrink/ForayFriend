@@ -3,7 +3,7 @@
 <h2>Foraged</h2>
 <ul>
     {% for f in foraged_list %}
-    <li>{{ f.name }}</li>
+    <li><a href="{% url 'detail' id=f.id %}">{{ f.name }}</a></li>
     {% endfor %}
 </ul>
 

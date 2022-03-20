@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .models import Foraged, ForageType, Season, Foray, Resource
 
 # Create your views here.
@@ -8,3 +8,8 @@ def index(request):
 def foraged(request):
     foraged_list=Foraged.objects.all()
     return render(request, 'friend/foraged.html', {'foraged_list': foraged_list})
+
+def forageDetail(request, id):
+    foraged=get_object_or_404(Foraged, pk=id)
+    return render(request, 'friend/foragedetail.html', {'foraged' : foraged})
+

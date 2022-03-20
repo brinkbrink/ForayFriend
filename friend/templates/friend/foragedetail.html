@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Foraged Detail</h2>
+<ul>
+    <li><b>Name</b>: {{foraged.name}}</li>
+    <li><b>Type</b>: {{foraged.foragetype}}</li>
+    <li><b>Season</b>: {{foraged.season}}</li>
+    <li><b>Date Found</b>: {{foraged.datefound}}</li>
+    <li><b>Amount Found</b>: {{foraged.amountfound}}</li>
+    <li><b>Location</b>: {{foraged.location}}</li>
+    <li><b>Comment</b>: {{foraged.comment}}</li>
+    <li><b>User</b>: {{foraged.user}}</li>
+    <li><b>Date Entered</b>: {{foraged.dateentered}}</li>
+</ul>
+{% endblock %}
