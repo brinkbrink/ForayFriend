@@ -33,6 +33,10 @@ class Foraged(models.Model):
     dateentered=models.DateField()
     user=models.ForeignKey(User, on_delete=models.DO_NOTHING)
 
+    def possiblePrice(self):
+        self.price = self.amountfound * 15.50
+        return self.price
+
     def __str__(self):
         return self.name
 

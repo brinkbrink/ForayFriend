@@ -1,3 +1,80 @@
 from django.test import TestCase
+from django.contrib.auth.models import User
+from .models import Season, ForageType, Foraged, Foray, Resource
+import datetime
 
 # Create your tests here.
+
+class ForagedTest(TestCase):
+    def setUp(self):
+        self.typename=ForageType(typename='edible')
+        self.season=Season(season='spring')
+        self.user=User(username='yada')
+        self.foraged=Foraged(name='Claytonia lanceolata', amountfound=3, location='Cascades', datefound=datetime.date(2022,1,1),dateentered=datetime.date(2022,1,1),)
+
+    def test_titlestring(self):
+        self.assertEqual(str(self.foraged), 'Claytonia lanceolata')
+
+    def test_tablename(self):
+        self.assertEqual(str(Foraged._meta.db_table), 'foraged')
+
+    def test_possiblePrice(self):
+        poss=self.foraged.amountfound * 15.50
+        self.assertEqual(self.foraged.possiblePrice(),poss)
+
+class SeasonTest(TestCase):
+    def setUp(self):
+        self.season=Season(season='summer')
+
+    def test_titlestring(self):
+        self.assertEqual(str(self.season), 'summer')
+
+    def test_tablename(self):
+        self.assertEqual(str(Season._meta.db_table), 'seasons')
+
+class ForageTypeTest(TestCase):
+    def setUp(self):
+        self.typename=ForageType(typename='edible')
+
+    def test_titlestring(self):
+        self.assertEqual(str(self.typename), 'edible')
+
+    def test_tablename(self):
+        self.assertEqual(str(ForageType._meta.db_table), 'foragetypes')
+
+
+class ResourceTest(TestCase):
+    def setUp(self):
+        self.name=Resource(name='A Resource')
+    
+    def test_namestring(self):
+        self.assertEqual(str(self.name), 'A Resource')
+
+    def test_tablename(self):
+        self.assertEqual(str(Resource._meta.db_table), 'resources')
+
+class ForayTest(TestCase):
+    def setUp(self):
+        self.name=Foray(name='Burn Morels Burn')
+
+    def test_evtitlestring(self):
+        self.assertEqual(str(self.name), 'Burn Morels Burn')
+
+    def test_tablename(self):
+        self.assertEqual(str(Foray._meta.db_table), 'forays')
+
+# class ForagedTest(TestCase):
+#     def setUp(self):
+
+
+# class MeetingMinTest(TestCase):
+#     def setUp(self):
+#         self.meetid=Meeting(title='meeting')
+#         self.userid=User(username='user2')
+#         self.meetingmin=MeetingMin(meetid=self.meetid, userid=self.userid, minutes='Minutes of this meeting')
+
+#     def test_minstring(self):
+#         self.assertEqual(str(self.meetingmin), 'Minutes of this meeting')
+
+#     def test_tablename(self):
+#         self.assertEqual(str(MeetingMin._meta.db_table), 'meetingmin')
