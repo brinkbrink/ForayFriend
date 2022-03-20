@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from .models import Season, ForageType, Foraged, Foray, Resource
 import datetime
+from .forms import ForagedForm
 
 # Create your tests here.
 
@@ -63,18 +64,16 @@ class ForayTest(TestCase):
     def test_tablename(self):
         self.assertEqual(str(Foray._meta.db_table), 'forays')
 
-# class ForagedTest(TestCase):
-#     def setUp(self):
-
-
-# class MeetingMinTest(TestCase):
-#     def setUp(self):
-#         self.meetid=Meeting(title='meeting')
-#         self.userid=User(username='user2')
-#         self.meetingmin=MeetingMin(meetid=self.meetid, userid=self.userid, minutes='Minutes of this meeting')
-
-#     def test_minstring(self):
-#         self.assertEqual(str(self.meetingmin), 'Minutes of this meeting')
-
-#     def test_tablename(self):
-#         self.assertEqual(str(MeetingMin._meta.db_table), 'meetingmin')
+class NewForagedForm(TestCase):
+    #valid form data
+    def test_foragedform(self):
+        data={            
+            'name':'rubus',
+            'foragetype' : 'edible',
+            'season' : 'summer',
+            'datefound':'2022-03-02', 
+            'dateentered':'2022-03-02', 
+            'location':'cascades', 
+            'user' : 'brink'}
+        form=ForagedForm(data)
+        self.assertTrue(form.is_valid)

@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from .models import Foraged, ForageType, Season, Foray, Resource
+from .forms import ForagedForm
 
 # Create your views here.
 def index(request):
@@ -13,3 +14,15 @@ def forageDetail(request, id):
     foraged=get_object_or_404(Foraged, pk=id)
     return render(request, 'friend/foragedetail.html', {'foraged' : foraged})
 
+def newForaged(request):
+    form=ForagedForm
+
+    if request.method=='POST':
+        form=ForagedForm(request.POST)
+        if form.is_valid():
+            post=form.save(commit=True)
+            post.save()
+            form=ForagedForm()
+    else: 
+        form=ForagedForm()
+    return render(request, 'friend/newforaged.html', {'form':form})
