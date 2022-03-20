@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from .models import Season, ForageType, Foraged, Foray, Resource
 import datetime
 from .forms import ForagedForm
+from django.urls import reverse_lazy, reverse
 
 # Create your tests here.
 
@@ -77,3 +78,14 @@ class NewForagedForm(TestCase):
             'user' : 'brink'}
         form=ForagedForm(data)
         self.assertTrue(form.is_valid)
+
+class New_Foraged_Authentication_Test(TestCase):
+    def setUp(self):
+        self.test_user=User.objects.create_user(username='testuser1', password='p@ssw0rd1')
+        self.season=Season.objects.create(season='summer')
+        self.type=ForageType.objects.create(typename='edible')
+        self.foraged=Foraged.objects.create(name='Claytonia lanceolata', foragetype=self.type, season=self.season, amountfound=3, location='Cascades', datefound=datetime.date(2022,1,1),dateentered=datetime.date(2022,1,1), user=self.test_user)
+
+    def test_redirect_if_not_logged_in(self):
+        response=self.client.get(reverse('newforaged'))
+        self.assertRedirects(response, '/accounts/login/?next=/friend/newforaged/')
